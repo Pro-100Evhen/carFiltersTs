@@ -1,15 +1,29 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 interface Make {
    MakeId: number;
    MakeName: string;
+
 }
 
 const FilterPage = () => {
    const { makes, years } = useSelector((state) => state.filter);
-   // const [selectYear, setSelectYearState] = useState<number | null>(null);
-   // const [selectBrand, setSelectYear] = useState<number | null>(null);
+
+   const [selectMake, setSelectMake] = useState<string | undefined>(undefined);
+   const [selectYear, setSelectYear] = useState<number | undefined>(undefined);
+
+   const handleMakeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      setSelectMake(event.target.value);
+   };
+
+   const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      setSelectYear(Number(event.target.value));
+   };
+
+   const isButtonDisabled = !selectMake || !selectYear;
+
    return (
       <div className="min-h-screen bg-gray-100 flex items-center justify-center">
          <div className="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
@@ -20,25 +34,29 @@ const FilterPage = () => {
                   name="make"
                   id="make"
                   className="bg-white border border-gray-300 p-2 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onChange={handleMakeChange}
+                  value={selectMake}
                >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                      Select a brand
                   </option>
                   {makes.map((make: Make) => (
-                     <option key={make.MakeId} value={make.MakeName}>
+                     <option key={make.MakeId} value={make.MakeId}>
                         {make.MakeName}
                      </option>
                   ))}
                </select>
             </div>
             <div className="flex flex-col mb-4">
-               <label htmlFor="make" className="mb-2 text-gray-700">Year</label>
+               <label htmlFor="year" className="mb-2 text-gray-700">Year</label>
                <select
-                  name="make"
-                  id="make"
+                  name="year"
+                  id="year"
                   className="bg-white border border-gray-300 p-2 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onChange={handleYearChange}
+                  value={selectYear}
                >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                      Select a year
                   </option>
                   {years.map((year: number) => (
@@ -49,7 +67,11 @@ const FilterPage = () => {
                </select>
             </div>
             <div>
-               <Link to="result/:makeId/:year" className="bg-blue-500 text-white py-4 px-4 rounded-md w-[100%] block ">
+               <Link
+                  to={`result/${selectMake}/${selectYear}`}
+                  className={`bg-blue-500 text-white py-4 px-4 rounded-md w-full block ${isButtonDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  style={{ pointerEvents: isButtonDisabled ? 'none' : 'auto' }} 
+               >
                   Show models
                </Link>
             </div>

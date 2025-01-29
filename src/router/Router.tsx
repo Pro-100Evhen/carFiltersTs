@@ -8,7 +8,7 @@ const router = createBrowserRouter([
       element: <FilterPage />
    },
    {
-      path: "brand",
+      path: "result/:makeId/:year",
       element: <BrandPage />
    }
 ])
