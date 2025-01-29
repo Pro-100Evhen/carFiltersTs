@@ -1,7 +1,10 @@
+import { RouterProvider } from "react-router-dom";
+import router from "./router/Router";
+
 function App() {
    return (
       <div className="px-10 text-4xl">
-         <h1>Vite + React</h1>
+         <RouterProvider router={router} />
       </div>
    );
 }
