@@ -29,10 +29,12 @@ const initialState: FilterState = {
 export const fetchMakes = createAsyncThunk(
    'filter/fetchMakes',
    async () => {
-      const response = await axios.get(import.meta.env.VEHICLE_MAKES_API);
-      return response.data;
+      const response = await axios.get(import.meta.env.VITE_VEHICLE_MAKES_API);
+      return response.data.Results;
    }
 );
+
+
 
 const filterSlice = createSlice({
    name: "filter",
