@@ -1,3 +1,4 @@
+import { fetchMakes } from './filterSlice';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -40,7 +41,17 @@ export const fetchMakes = createAsyncThunk(
    }
 );
 
-
+export const fetchVehicleModels = createAsyncThunk(
+   'filter/fetchVehicleModels',
+   async ({ makeId, year }) => {
+      const response = await axios.get(
+         `${
+            import.meta.env.VITE_VEHICLE_MODELS_API
+         }${makeId}/modelyear/${year}?format=json`
+      );
+      return response.data.Results;
+   }
+);
 
 const filterSlice = createSlice({
    name: "filter",
@@ -57,6 +68,20 @@ const filterSlice = createSlice({
       });
       builder.addCase(fetchMakes.rejected, (state, action) => {
          state.error = action.error.message || 'Failed to fetch makes';
+      });
+
+      builder.addCase(fetchVehicleModels.pending, (state) => {
+         state.loadingModels = true;
+         state.error = null;
+      });
+      builder.addCase(fetchVehicleModels.fulfilled, (state, action) => {
+         state.models = action.payload;
+         state.loadingModels = false;
+         console.log(action.payload);
+      });
+      builder.addCase(fetchVehicleModels.rejected, (state, action) => {
+         state.error = action.error.message || 'Failed to fetch models';
+         state.loadingModels = false;
       });
    },
 })
