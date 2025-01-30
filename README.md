@@ -1,4 +1,74 @@
 # React + TypeScript + Vite
+# CarFilters Application
+
+## Overview
+
+CarFilters is a simple React-based project created with Vite. This application allows users to filter vehicles by type (make) and model year, and view the results. While the requirements mentioned Next.js, this implementation uses React due to the developer's experience and proficiency with it. Vite is used as the build tool for faster development.
+
+---
+
+## Features
+
+| Feature                                          | Description                                                              |
+|--------------------------------------------------|--------------------------------------------------------------------------|
+| **Filter vehicles**                              | Filter vehicles by type (make) and model year.                           |
+| **Dynamic fetching**                             | Fetch vehicle makes and models dynamically using VPIC API.               |
+| **State management**                             | Redux Toolkit for state management.                                      |
+| **Styled UI**                                    | Styled with Tailwind CSS for a clean and responsive UI.                  |
+| **Error handling**                               | Includes error handling for API calls.                                   |
+| **Return to Home button**                        | Adds a "Return to Home" button for user convenience.                     |
+
+---
+
+## How to Run the Application
+
+# 1. Clone the Repository
+git clone <repository-url>
+cd carfilters
+
+# 2. Install Dependencies
+npm install
+
+# 3. Set Up Environment Variables
+Create a .env file in the root directory and store the necessary environment variables. Example:
+VITE_API_BASE_URL=https://vpic.nhtsa.dot.gov/api
+import.meta.env.VITE_VEHICLE_MAKES_API
+
+# 4. Start the Development Server
+npm run dev
+Open the application in your browser at http://localhost:5173.
+
+# 5. Build the Project for Production
+npm run build
+
+## Notes
+
+| Feature                                          | Description                                                              |
+|--------------------------------------------------|--------------------------------------------------------------------------|
+| **React Instead of Next.js**                       | Implemented using React due to developer familiarity and lack of Next.js experience. |
+| **Suspense Component**                             | Not used. Redux Toolkit handles state management effectively.                           |
+| **Environment Variables**                         | Vite uses import.meta.env syntax for environment variables. Adjust configurations accordingly. |
+| **Navigation Convenience**                        | Includes a "Return to Home" button for better user experience.                     |
+
+# Commands Summary
+| Command | Description |
+|---|---|
+| npm run dev | Starts the development server. |
+| npm run build | Builds the project for production. |
+| npm run preview | Previews the production build locally. |
+| npm run lint | Runs ESLint to check code quality. |
+| npm run format | Formats the codebase using Prettier. |
+
+# API Endpoints Used
+    * Fetch Vehicle Makes:
+    GET https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json
+    * Fetch Vehicle Models:
+    GET https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/{makeId}/modelyear/{year}?format=json
+
+# Final Notes
+The application satisfies the functional requirements mentioned in the task with the above modifications. For any further feedback or questions, feel free to reach out. Thank you for your understanding!
+
+# React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -6,45 +76,3 @@ Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-   languageOptions: {
-      // other options...
-      parserOptions: {
-         project: ['./tsconfig.node.json', './tsconfig.app.json'],
-         tsconfigRootDir: import.meta.dirname,
-      },
-   },
-});
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react';
-
-export default tseslint.config({
-   // Set the react version
-   settings: { react: { version: '18.3' } },
-   plugins: {
-      // Add the react plugin
-      react,
-   },
-   rules: {
-      // other rules...
-      // Enable its recommended rules
-      ...react.configs.recommended.rules,
-      ...react.configs['jsx-runtime'].rules,
-   },
-});
-```
