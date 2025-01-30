@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from './store/store.ts';
 import { fetchMakes } from './store/Slices/filterSlice.ts';
 
-store.dispatch(fetchMakes())
+store.dispatch(fetchMakes());
 
 createRoot(document.getElementById('root')!).render(
    <Provider store={store}>
