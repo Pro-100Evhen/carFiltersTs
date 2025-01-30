@@ -6,8 +6,14 @@ interface VehicleModel {
    MakeName: string;
 }
 
-interface FilterState{
-   makes: string[];
+export interface Make {
+   MakeId: number;
+   MakeName: string;
+
+}
+
+export interface FilterState{
+   makes: Make[];
    years: number[],
    selectedMakeId: number | null;
    selectedYear: number | null;
@@ -16,7 +22,7 @@ interface FilterState{
    error: string | null;
 }
 
-const initialState: FilterState = {
+export const initialState: FilterState = {
    makes: [],
    years: Array.from({ length: new Date().getFullYear() - 2014 }, (_, i) => 2015 + i),
    selectedMakeId: null,

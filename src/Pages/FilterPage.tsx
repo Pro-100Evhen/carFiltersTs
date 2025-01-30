@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { FilterState, Make } from "../store/Slices/filterSlice";
 
-interface Make {
-   MakeId: number;
-   MakeName: string;
 
+
+interface RootState {
+   filter: FilterState;
 }
 
 const FilterPage = () => {
-   const { makes, years } = useSelector((state) => state.filter);
+   const { makes, years } = useSelector((state: RootState) => state.filter);
 
    const [selectMake, setSelectMake] = useState<string | undefined>(undefined);
    const [selectYear, setSelectYear] = useState<number | undefined>(undefined);
