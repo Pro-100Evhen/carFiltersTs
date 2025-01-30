@@ -1,4 +1,3 @@
-import { fetchMakes } from './filterSlice';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
